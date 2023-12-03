@@ -98,23 +98,27 @@ class UI:
         self.root.protocol("WM_DELETE_WINDOW", lambda: self.shutdown(vars))
         self.root.iconbitmap(icon_path)
         
-        self.app_width = int(0.33 * self.root.winfo_screenwidth())
+        #self.app_width = int(0.33 * self.root.winfo_screenwidth())
+        self.app_width = 600
         self.app_height = int(0.89 * self.root.winfo_screenheight())
         
         self.root.resizable(0,0)
         self.root.eval('tk::PlaceWindow . center')
         self.root.geometry('%dx%d+%d+%d' % (self.app_width, self.app_height, (self.root.winfo_screenwidth() //2 - self.app_width // 2), (self.root.winfo_screenheight() // 2 - self.app_height // 2 - 48)))
         
-        self.title = customtkinter.CTkLabel(master = self.root, text = "Joy Offset", font = ("Roboto", 22))
+        self.scroll_frame = customtkinter.CTkScrollableFrame(self.root)
+        self.scroll_frame.pack(side="top", fill="both", expand=True)
+        
+        self.title = customtkinter.CTkLabel(master = self.scroll_frame, text = "Joy Offset", font = ("Roboto", 22))
         self.title.pack(pady=(20,0), padx=0)
         
-        self.frameA = customtkinter.CTkFrame(master=self.root)
+        self.frameA = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frameA.pack(pady=(20,0), padx=60, fill="x", expand=False)
         
         self.entry = customtkinter.CTkEntry(master = self.frameA, placeholder_text = f"Joystick ID {vars.joy_id}", justify="center")
         self.entry.pack(pady=12, padx=(10), fill="x")
         
-        self.frame = customtkinter.CTkFrame(master=self.root)
+        self.frame = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame.pack(pady=(20,0), padx=60, fill="x", expand=False)
         
         self.switch1_var = customtkinter.IntVar(value = vars.config['usages']['use_l_analog'])
@@ -137,7 +141,7 @@ class UI:
         self.switch_5 = customtkinter.CTkSwitch(master=self.frame, text="Replicate buttons",  onvalue=1, offvalue=0, variable = self.switch5_var)
         self.switch_5.pack(pady=6, padx=6, fill="x", expand=True)
         
-        self.frame3 = customtkinter.CTkFrame(master=self.root)
+        self.frame3 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame3.pack(pady=(20,0),  padx=60, fill="x", expand=False)
         
         self.slider = customtkinter.CTkSlider(master=self.frame3, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -152,7 +156,7 @@ class UI:
         
         self.slider.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider, self.SenseLabel))
         
-        self.frame4 = customtkinter.CTkFrame(master=self.root)
+        self.frame4 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame4.pack(pady=(0,0),  padx=60, fill="x", expand=False)
         
         self.slider1 = customtkinter.CTkSlider(master=self.frame4, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -167,7 +171,7 @@ class UI:
         
         self.slider1.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider1, self.SenseLabel1))
         
-        self.frame5 = customtkinter.CTkFrame(master=self.root)
+        self.frame5 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame5.pack(pady=(20,0),  padx=60, fill="x", expand=False)
         
         self.slider2 = customtkinter.CTkSlider(master=self.frame5, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -182,7 +186,7 @@ class UI:
         
         self.slider2.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider2, self.SenseLabel2))
         
-        self.frame6 = customtkinter.CTkFrame(master=self.root)
+        self.frame6 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame6.pack(pady=(0,0),  padx=60, fill="x", expand=False)
         
         self.slider3 = customtkinter.CTkSlider(master=self.frame6, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -197,7 +201,7 @@ class UI:
         
         self.slider3.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider3, self.SenseLabel3))
         
-        self.frame7 = customtkinter.CTkFrame(master=self.root)
+        self.frame7 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame7.pack(pady=(20,0),  padx=60, fill="x", expand=False)
         
         self.slider4 = customtkinter.CTkSlider(master=self.frame7, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -212,7 +216,7 @@ class UI:
         
         self.slider4.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider4, self.SenseLabel4))
         
-        self.frame8 = customtkinter.CTkFrame(master=self.root)
+        self.frame8 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame8.pack(pady=(0,0),  padx=60, fill="x", expand=False)
         
         self.slider5 = customtkinter.CTkSlider(master=self.frame8, border_width=5.5, width = 150, from_ = -1, to = 1)
@@ -227,7 +231,7 @@ class UI:
         
         self.slider5.bind("<ButtonRelease-1>", lambda event: self.on_slider_release(self.slider5, self.SenseLabel5))
         
-        self.frame9 = customtkinter.CTkFrame(master=self.root)
+        self.frame9 = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame9.pack(pady=(20,0),  padx=60, fill="x", expand=False)
         
         self.SenseLabel6 = customtkinter.CTkLabel(master = self.frame9, font = ("Roboto", 14))
@@ -248,13 +252,13 @@ class UI:
         self.SenseLabel11 = customtkinter.CTkLabel(master = self.frame9, font = ("Roboto", 14))
         self.SenseLabel11.pack(pady=3, padx=(6,1), side = "top")
         
-        self.SenseLabel12 = customtkinter.CTkLabel(master = self.root, text = vars.msg,font = ("Roboto", 16))
+        self.SenseLabel12 = customtkinter.CTkLabel(master = self.scroll_frame, text = vars.msg,font = ("Roboto", 16))
         self.SenseLabel12.pack(pady=20, padx=(6,1), side = "top")
         
-        self.button_x = customtkinter.CTkButton(master=self.root, border_width=0, corner_radius=8, text="Settings Folder", command = lambda: os.startfile(self.cwd))
+        self.button_x = customtkinter.CTkButton(master=self.scroll_frame, border_width=0, corner_radius=8, text="Settings Folder", command = lambda: os.startfile(self.cwd))
         self.button_x.pack(pady=6, padx=1, side = "bottom", expand = True)
         
-        self.button = customtkinter.CTkButton(master=self.root, border_width=0, corner_radius=8, text="Save", command = lambda: self.save_config(vars))
+        self.button = customtkinter.CTkButton(master=self.scroll_frame, border_width=0, corner_radius=8, text="Save", command = lambda: self.save_config(vars))
         self.button.pack(pady=6, padx=1, side = "bottom", expand = True)
         
         thread3 = threading.Thread(target = self.real_time_update_texts, args=(vars, ))
