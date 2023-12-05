@@ -117,6 +117,7 @@ class UI:
         
         self.entry = customtkinter.CTkEntry(master = self.frameA, placeholder_text = f"Joystick ID {vars.joy_id}", justify="center")
         self.entry.pack(pady=12, padx=(10), fill="x")
+        self.entry.configure(textvariable = f"{vars.joy_id}")
         
         self.frame = customtkinter.CTkFrame(master=self.scroll_frame)
         self.frame.pack(pady=(20,0), padx=60, fill="x", expand=False)
